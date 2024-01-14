@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule],
   selector: 'pet-marketplace-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  template: `
+    <p>Welcome Pet Market</p>
+    <router-outlet></router-outlet>
+  `,
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Pet Market';
 }
