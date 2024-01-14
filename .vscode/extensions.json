@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "vmware.vscode-spring-boot",
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner",

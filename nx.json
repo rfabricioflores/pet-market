@@ -3,8 +3,13 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "lint": {
       "cache": true,
@@ -17,7 +22,11 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ],
       "options": {
         "passWithNoTests": true
       },
@@ -27,10 +36,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "install": {
+      "cache": true
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -58,5 +73,8 @@
       "style": "scss"
     }
   },
-  "nxCloudAccessToken": "ZjYxMTc1NGUtYjAxYS00NTU0LThiZGUtMDhkMTE2ZTZiZTJlfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "ZjYxMTc1NGUtYjAxYS00NTU0LThiZGUtMDhkMTE2ZTZiZTJlfHJlYWQtd3JpdGU=",
+  "plugins": [
+    "@nxrocks/nx-spring-boot"
+  ]
 }
