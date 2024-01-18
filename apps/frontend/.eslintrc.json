@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "petMarketplace",
+            "prefix": "petMarket",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "pet-marketplace",
+            "prefix": "pet-market",
             "style": "kebab-case"
           }
         ]
