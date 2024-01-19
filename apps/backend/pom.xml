@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>se.fabricioflores</groupId>
-	<artifactId>pet-marketplace</artifactId>
+	<artifactId>pet-market</artifactId>
 	<version>0.0.1</version>
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>

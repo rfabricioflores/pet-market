@@ -1,4 +1,4 @@
-package se.fabricioflores.petmarketplace;
+package se.fabricioflores.petmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

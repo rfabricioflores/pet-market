@@ -1,4 +1,4 @@
-package se.fabricioflores.petmarketplace;
+package se.fabricioflores.petmarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
