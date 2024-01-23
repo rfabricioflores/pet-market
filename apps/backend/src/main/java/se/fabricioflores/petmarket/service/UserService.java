@@ -19,13 +19,13 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User loadUserByUsername(String username) {
+  public User loadUserByUsername(String username) throws UserNotFoundException {
     return userRepository
     .findOneByUsername(username)
     .orElseThrow(() -> new UserNotFoundException());
   }
 
-  public User registerUser(RegisterCredentials credentials) {
+  public User registerUser(RegisterCredentials credentials) throws UsernameNotAvailable {
     try {
       loadUserByUsername(credentials.username());
       throw new UsernameNotAvailable();
