@@ -1,6 +1,7 @@
 package se.fabricioflores.petmarket.config;
 
 import java.io.IOException;
+import java.util.Collections;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       if(SecurityContextHolder.getContext().getAuthentication() == null) {
         String username = claims.getSubject();
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(username, null);
+        Authentication auth = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
 
         SecurityContextHolder.getContext().setAuthentication(auth);
       }
