@@ -1,10 +1,11 @@
 package se.fabricioflores.petmarket.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import lombok.AccessLevel;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import java.util.Objects;
-
+import java.util.Set;
 import org.hibernate.proxy.HibernateProxy;
 
 @Entity
@@ -34,7 +35,7 @@ public class User {
   private String password;
 
   @Column(nullable = false)
-  private String name;
+  private String firstname;
 
   @Column(nullable = false)
   private String lastname;
@@ -43,6 +44,9 @@ public class User {
   private String email;
 
   private String phone;
+
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+  private Set<Ad> ads;
 
 
   @Override
