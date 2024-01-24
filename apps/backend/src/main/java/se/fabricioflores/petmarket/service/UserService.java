@@ -35,7 +35,7 @@ public class UserService {
 
       newUser.setUsername(credentials.username());
       newUser.setPassword(passwordEncoder.encode(credentials.password()));
-      newUser.setName(credentials.firstname());
+      newUser.setFirstname(credentials.firstname());
       newUser.setLastname(credentials.lastname());
       newUser.setEmail(credentials.email());
       newUser.setPhone(credentials.phone());
