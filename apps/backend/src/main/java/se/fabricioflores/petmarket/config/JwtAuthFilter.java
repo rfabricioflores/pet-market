@@ -2,7 +2,6 @@ package se.fabricioflores.petmarket.config;
 
 import java.io.IOException;
 import java.util.Collections;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -13,6 +12,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import se.fabricioflores.petmarket.security.AuthPrincipal;
+import se.fabricioflores.petmarket.security.UserAuthenticationToken;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -41,10 +42,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       Claims claims = jwtProvider.validateToken(token.replace("Bearer ", ""));
 
       if(SecurityContextHolder.getContext().getAuthentication() == null) {
-        String username = claims.getSubject();
+        AuthPrincipal principal = new AuthPrincipal();
+        principal.setUsername(claims.getSubject());
+        principal.setId(claims.get("id", Long.class));
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
-
+        Authentication auth = new UserAuthenticationToken(principal, Collections.emptyList());
         SecurityContextHolder.getContext().setAuthentication(auth);
       }
 

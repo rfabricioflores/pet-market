@@ -23,6 +23,7 @@ public class JwtProvider {
     return Jwts
             .builder()
             .setSubject(user.getUsername())
+            .claim("id", user.getId())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)))
             .signWith(SignatureAlgorithm.HS256, jwtSecret)
