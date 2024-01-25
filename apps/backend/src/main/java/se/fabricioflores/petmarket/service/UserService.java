@@ -1,5 +1,6 @@
 package se.fabricioflores.petmarket.service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.fabricioflores.petmarket.dto.RegisterCredentials;
@@ -19,13 +20,26 @@ public class UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User loadUserByUsername(String username) throws UserNotFoundException {
+  /**
+   * @throws UserNotFoundException
+   */
+  public User loadUserByUsername(String username) {
     return userRepository
     .findOneByUsername(username)
     .orElseThrow(() -> new UserNotFoundException());
   }
 
-  public User registerUser(RegisterCredentials credentials) throws UsernameNotAvailable {
+  /**
+   * @throws UserNotFoundException
+   */
+  public User loadUserById(Long id) {
+    return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+  }
+
+  /**
+   * @throws UsernameNotFoundException
+   */
+  public User registerUser(RegisterCredentials credentials) {
     try {
       loadUserByUsername(credentials.username());
       throw new UsernameNotAvailable();
