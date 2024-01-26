@@ -3,7 +3,10 @@ package se.fabricioflores.petmarket.service;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import se.fabricioflores.petmarket.config.JwtProvider;
+import se.fabricioflores.petmarket.dto.LoginCredentials;
 import se.fabricioflores.petmarket.dto.RegisterCredentials;
+import se.fabricioflores.petmarket.exception.InvalidCredentialsException;
 import se.fabricioflores.petmarket.exception.UserNotFoundException;
 import se.fabricioflores.petmarket.exception.UsernameNotAvailable;
 import se.fabricioflores.petmarket.model.User;
@@ -14,10 +17,16 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final JwtProvider jwtProvider;
 
-  public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserService(
+    UserRepository userRepository,
+    PasswordEncoder passwordEncoder,
+    JwtProvider jwtProvider
+    ) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
+    this.jwtProvider = jwtProvider;
   }
 
   /**
@@ -47,7 +56,7 @@ public class UserService {
     } catch(UserNotFoundException e) {
       User newUser = new User();
 
-      newUser.setUsername(credentials.username());
+      newUser.setUsername(credentials.username().toLowerCase());
       newUser.setPassword(passwordEncoder.encode(credentials.password()));
       newUser.setFirstname(credentials.firstname());
       newUser.setLastname(credentials.lastname());
@@ -56,6 +65,17 @@ public class UserService {
 
       return userRepository.save(newUser);
     }
+  }
+
+  /**
+   * Returns authentication token
+   * @throws UserNotFoundException
+   * @throws InvalidCredentialsException
+   */
+  public String login(LoginCredentials credentials) {
+    User user = loadUserByUsername(credentials.username());
+    if(!passwordEncoder.matches(credentials.password(), user.getPassword())) throw new InvalidCredentialsException();
+    return jwtProvider.generateToken(user);
   }
 
 }
