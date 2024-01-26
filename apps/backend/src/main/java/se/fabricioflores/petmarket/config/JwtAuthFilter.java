@@ -2,10 +2,12 @@ package se.fabricioflores.petmarket.config;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -19,9 +21,11 @@ import se.fabricioflores.petmarket.security.UserAuthenticationToken;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
   private final JwtProvider jwtProvider;
+  private final ObjectMapper objectMapper;
 
-  public JwtAuthFilter(JwtProvider jwtProvider) {
+  public JwtAuthFilter(JwtProvider jwtProvider, ObjectMapper objectMapper) {
     this.jwtProvider = jwtProvider;
+    this.objectMapper = objectMapper;
   }
 
   @Override
@@ -30,16 +34,34 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     HttpServletResponse response,
     FilterChain filterChain
   ) throws ServletException, IOException {
-    String token = request.getHeader("Authorization");
+    String token = extractToken(request);
 
-    if(token != null && token.startsWith("Bearer")) authenticate(token);
+    if(token != null) {
+      if(!authenticate(token)) {
+        String json = objectMapper.writeValueAsString(Map.of("error", "You don't have access to this resource"));
+
+        response.setStatus(403);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
+
+        return;
+      }
+    }
 
     filterChain.doFilter(request, response);
   }
 
-  private void authenticate(String token) {
+  private String extractToken(HttpServletRequest request) {
+    String header = request.getHeader("Authorization");
+    if (header != null && header.startsWith("Bearer ")) {
+        return header.replace("Bearer ", "");
+    }
+    return null;
+  }
+
+  private boolean authenticate(String token) {
     try {
-      Claims claims = jwtProvider.validateToken(token.replace("Bearer ", ""));
+      Claims claims = jwtProvider.validateToken(token);
 
       if(SecurityContextHolder.getContext().getAuthentication() == null) {
         AuthPrincipal principal = new AuthPrincipal();
@@ -50,8 +72,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(auth);
       }
 
+      return true;
+
     } catch(JwtException e) {
-      logger.warn("JWT Token Validation Failed");
+      logger.warn("Authentication failed: Not valid token provided");
+      return false;
     }
   }
+
 }

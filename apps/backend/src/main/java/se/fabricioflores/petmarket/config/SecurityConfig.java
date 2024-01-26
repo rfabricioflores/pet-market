@@ -17,11 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   private final JwtAuthFilter jwtAuthFilter;
-  private final UnauthorizedEntryPoint unauthorizedEntryPoint;
 
-  public SecurityConfig(JwtAuthFilter jwtAuthFilter, UnauthorizedEntryPoint unauthorizedEntryPoint) {
+  public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
     this.jwtAuthFilter = jwtAuthFilter;
-    this.unauthorizedEntryPoint = unauthorizedEntryPoint;
   }
 
   @Bean
@@ -37,8 +35,7 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
         .requestMatchers(HttpMethod.GET, "/api/ad", "/api/ad/*").permitAll()
         .anyRequest().authenticated()
-      )
-      .exceptionHandling(customizer -> customizer.authenticationEntryPoint(unauthorizedEntryPoint));
+      );
 
     return http.build();
   }
