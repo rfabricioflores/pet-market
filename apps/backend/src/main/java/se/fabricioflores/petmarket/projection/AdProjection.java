@@ -3,13 +3,11 @@ package se.fabricioflores.petmarket.projection;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record AdProjection(
-  Long id,
-  String title,
-  String description,
-  BigDecimal price,
-  LocalDateTime editedAt,
-  LocalDateTime createdAt
-) {
-
+public interface AdProjection {
+  Long getId();
+  String getTitle();
+  String getDescription();
+  BigDecimal getPrice();
+  LocalDateTime getEditedAt();
+  LocalDateTime getCreatedAt();
 }
