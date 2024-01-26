@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,8 +73,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
       return true;
 
-    } catch(JwtException e) {
+    } catch(RuntimeException e) {
       logger.warn("Authentication failed: Not valid token provided");
+      SecurityContextHolder.clearContext();
       return false;
     }
   }
