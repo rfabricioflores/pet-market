@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import se.fabricioflores.petmarket.dto.AdSubmission;
@@ -36,10 +37,21 @@ public class AdController {
   /**
    * Requires authentication
    */
-  @PostMapping("/")
+  @PostMapping()
   public ResponseEntity<Object> createAd(@RequestBody @Valid AdSubmission adSubmission) {
     AuthPrincipal principal = AuthManager.getPrincipal().get();
     return ResponseEntity.ok().body(adService.createAd(adSubmission, principal.getId()));
+  }
+
+  /**
+   * Public endpoint
+   */
+  @GetMapping
+  public ResponseEntity<Object> retrievePaginatedAds(
+    @RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
+    @RequestParam(name = "size", defaultValue = "5") Integer pageSize
+  ) {
+    return ResponseEntity.ok().body(adService.getAdsWithPagination(pageNumber, pageSize));
   }
 
 }
