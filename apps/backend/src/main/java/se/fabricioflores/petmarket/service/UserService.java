@@ -1,14 +1,13 @@
 package se.fabricioflores.petmarket.service;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.fabricioflores.petmarket.config.JwtProvider;
 import se.fabricioflores.petmarket.dto.LoginCredentials;
 import se.fabricioflores.petmarket.dto.RegisterCredentials;
-import se.fabricioflores.petmarket.exception.InvalidCredentialsException;
+import se.fabricioflores.petmarket.exception.InvalidLoginCredsException;
 import se.fabricioflores.petmarket.exception.UserNotFoundException;
-import se.fabricioflores.petmarket.exception.UsernameNotAvailable;
+import se.fabricioflores.petmarket.exception.UsernameNotAvailableException;
 import se.fabricioflores.petmarket.model.User;
 import se.fabricioflores.petmarket.repository.UserRepository;
 
@@ -46,12 +45,12 @@ public class UserService {
   }
 
   /**
-   * @throws UsernameNotFoundException
+   * @throws UsernameNotAvailableException
    */
   public User registerUser(RegisterCredentials credentials) {
     try {
       loadUserByUsername(credentials.username());
-      throw new UsernameNotAvailable();
+      throw new UsernameNotAvailableException();
 
     } catch(UserNotFoundException e) {
       User newUser = new User();
@@ -70,11 +69,11 @@ public class UserService {
   /**
    * Returns authentication token
    * @throws UserNotFoundException
-   * @throws InvalidCredentialsException
+   * @throws InvalidLoginCredsException
    */
   public String login(LoginCredentials credentials) {
     User user = loadUserByUsername(credentials.username());
-    if(!passwordEncoder.matches(credentials.password(), user.getPassword())) throw new InvalidCredentialsException();
+    if(!passwordEncoder.matches(credentials.password(), user.getPassword())) throw new InvalidLoginCredsException();
     return jwtProvider.generateToken(user);
   }
 
