@@ -63,8 +63,8 @@ public class Ad {
     Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
     Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
     if (thisEffectiveClass != oEffectiveClass) return false;
-    User user = (User) o;
-    return getId() != null && Objects.equals(getId(), user.getId());
+    Ad ad = (Ad) o;
+    return getId() != null && Objects.equals(getId(), ad.getId());
   }
 
   @Override
