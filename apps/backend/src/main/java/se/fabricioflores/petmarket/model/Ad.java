@@ -1,27 +1,32 @@
 package se.fabricioflores.petmarket.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.AccessLevel;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class User {
+public class Ad {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
@@ -29,26 +34,26 @@ public class User {
   @Setter(AccessLevel.NONE)
   private Long id;
 
-  @Column(unique = true, nullable = false)
-  private String username;
+  @Column(nullable = false)
+  private String title;
+
+  private String description;
 
   @Column(nullable = false)
-  private String password;
+  private BigDecimal price;
 
+  @UpdateTimestamp
   @Column(nullable = false)
-  private String firstname;
+  private LocalDateTime editedAt;
 
-  @Column(nullable = false)
-  private String lastname;
-
-  @Column(nullable = false, unique = true)
-  private String email;
-
-  private String phone;
+  @CreationTimestamp
+  @Column(nullable = false, updatable = false)
+  private LocalDateTime createdAt;
 
   @JsonIgnore
-  @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-  private Set<Ad> ads;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User owner;
 
 
   @Override
@@ -66,5 +71,4 @@ public class User {
   public final int hashCode() {
     return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
   }
-
 }

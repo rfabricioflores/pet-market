@@ -35,6 +35,7 @@ public class SecurityConfig {
         authorize
         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
+        .requestMatchers(HttpMethod.GET, "/api/ad", "/api/ad/*").permitAll()
         .anyRequest().authenticated()
       )
       .exceptionHandling(customizer -> customizer.authenticationEntryPoint(unauthorizedEntryPoint));
