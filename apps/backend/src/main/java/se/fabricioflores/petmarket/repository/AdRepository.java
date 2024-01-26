@@ -13,4 +13,5 @@ public interface AdRepository extends PagingAndSortingRepository<Ad, Long>, Crud
   Optional<AdProjection> findOneById(Long id);
   Optional<AdWithUserInfoProjection> findOneWithUserById(Long id);
   Page<AdProjection> findAllBy(Pageable pageable);
+  Page<AdProjection> findAllByTitleContaining(String title, Pageable pageable);
 }

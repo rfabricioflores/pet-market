@@ -54,4 +54,13 @@ public class AdController {
     return ResponseEntity.ok().body(adService.getAdsWithPagination(pageNumber, pageSize));
   }
 
+  @GetMapping("/search")
+  public ResponseEntity<Object> searchBy(
+    @RequestParam(required = true) String title,
+    @RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
+    @RequestParam(name = "size", defaultValue = "5") Integer pageSize
+  ) {
+    return ResponseEntity.ok().body(adService.searchAdsByTitle(title, pageNumber, pageSize));
+  }
+
 }
