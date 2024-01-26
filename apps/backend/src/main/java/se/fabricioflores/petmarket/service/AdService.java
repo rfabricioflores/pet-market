@@ -1,5 +1,7 @@
 package se.fabricioflores.petmarket.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -39,6 +41,10 @@ public class AdService {
    */
   public AdWithUserInfoProjection getAdWithUserInfo(@Valid @PositiveOrZero Long id) {
     return adRepository.findOneWithUserById(id).orElseThrow(() -> new AdNotFoundException());
+  }
+
+  public Page<AdProjection> getAdsWithPagination(int pageNumber, int pageSize) {
+    return adRepository.findAllBy(PageRequest.of(pageNumber, pageSize));
   }
 
 }
