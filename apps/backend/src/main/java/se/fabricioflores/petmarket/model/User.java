@@ -16,6 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import java.util.Objects;
 import java.util.Set;
 import org.hibernate.proxy.HibernateProxy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
@@ -45,6 +46,7 @@ public class User {
 
   private String phone;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
   private Set<Ad> ads;
 

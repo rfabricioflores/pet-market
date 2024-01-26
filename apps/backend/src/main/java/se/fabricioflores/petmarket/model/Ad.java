@@ -21,6 +21,7 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data
@@ -49,6 +50,7 @@ public class Ad {
   @Column(nullable = false, updatable = false)
   private LocalDateTime createdAt;
 
+  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User owner;
