@@ -47,4 +47,8 @@ public class AdService {
     return adRepository.findAllBy(PageRequest.of(pageNumber, pageSize));
   }
 
+  public Page<AdProjection> searchAdsByTitle(String title, int pageNumber, int pageSize) {
+    return adRepository.findAllByTitleContaining(title, PageRequest.of(pageNumber, pageSize));
+  }
+
 }
