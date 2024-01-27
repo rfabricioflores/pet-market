@@ -1,6 +1,7 @@
 package se.fabricioflores.petmarket.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,7 +15,9 @@ public record AdSubmission(
   String description,
 
   @NotNull @PositiveOrZero
-  BigDecimal price
+  BigDecimal price,
+
+  List<String> photos
 ) {
   public static Ad mappToAd(AdSubmission submission, User owner) {
     Ad ad = new Ad();
