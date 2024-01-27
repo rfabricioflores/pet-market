@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import se.fabricioflores.petmarket.dto.AdSubmission;
 import se.fabricioflores.petmarket.security.AuthManager;
-import se.fabricioflores.petmarket.security.AuthPrincipal;
 import se.fabricioflores.petmarket.service.AdService;
 
 @RestController
@@ -39,8 +38,7 @@ public class AdController {
    */
   @PostMapping()
   public ResponseEntity<Object> createAd(@RequestBody @Valid AdSubmission adSubmission) {
-    AuthPrincipal principal = AuthManager.getPrincipal().get();
-    return ResponseEntity.ok().body(adService.createAd(adSubmission, principal.getId()));
+    return ResponseEntity.ok().body(adService.createAd(adSubmission));
   }
 
   /**

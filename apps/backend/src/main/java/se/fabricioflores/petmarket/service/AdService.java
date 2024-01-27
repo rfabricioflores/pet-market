@@ -1,5 +1,7 @@
 package se.fabricioflores.petmarket.service;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -8,10 +10,13 @@ import jakarta.validation.constraints.PositiveOrZero;
 import se.fabricioflores.petmarket.dto.AdSubmission;
 import se.fabricioflores.petmarket.exception.AdNotFoundException;
 import se.fabricioflores.petmarket.model.Ad;
+import se.fabricioflores.petmarket.model.AdPhoto;
 import se.fabricioflores.petmarket.model.User;
 import se.fabricioflores.petmarket.projection.AdProjection;
 import se.fabricioflores.petmarket.projection.AdWithUserInfoProjection;
 import se.fabricioflores.petmarket.repository.AdRepository;
+import se.fabricioflores.petmarket.security.AuthManager;
+import se.fabricioflores.petmarket.security.AuthPrincipal;
 
 @Service
 public class AdService {
@@ -24,9 +29,26 @@ public class AdService {
     this.userService = userService;
   }
 
-  public Ad createAd(AdSubmission adSubmission, Long ownerId) {
-    User user = userService.loadUserById(ownerId);
-    return adRepository.save(AdSubmission.mappToAd(adSubmission, user));
+  public Ad createAd(AdSubmission adSubmission) {
+    AuthPrincipal principal = AuthManager.getPrincipal().get();
+    User user = userService.loadUserById(principal.getId());
+
+    Ad ad = AdSubmission.mappToAd(adSubmission, user);
+
+    if(adSubmission.photos() != null && !adSubmission.photos().isEmpty()) {
+      Set<AdPhoto> photos = new HashSet<>();
+
+      adSubmission.photos().stream().forEach((url) -> {
+        AdPhoto adPhoto = new AdPhoto();
+        adPhoto.setUrl(url);
+        adPhoto.setAd(ad);
+        photos.add(adPhoto);
+      });
+
+      ad.setPhotos(photos);
+    }
+
+    return adRepository.save(ad);
   }
 
   /**
