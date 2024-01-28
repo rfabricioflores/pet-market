@@ -1,0 +1,58 @@
+:host {
+  display: block;
+
+  >.wrapper {
+    padding: 0;
+  }
+}
+
+// PrimeNG Customization
+:host ::ng-deep {
+
+  p-menubar {
+    display: block;
+
+    // Menu Bar Content
+    >.p-menubar {
+      position: relative;
+
+      // Hamburger Button
+      >.p-menubar-button {
+        position: absolute;
+        right: .5rem;
+        > .p-element >  svg {
+          width: 1.7rem;
+          height: 1.7rem;
+        }
+      }
+
+      // Menu items
+      p-menubarsub {
+        position: absolute;
+        right: 0;
+
+        &[ng-reflect-mobile-active="true"] {
+          bottom: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+
+  >img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    margin-right: .5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+  }
+}
