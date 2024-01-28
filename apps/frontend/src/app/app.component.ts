@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
   selector: 'pet-market-root',
   template: `
-    <p>Welcome Pet Market</p>
-    <router-outlet></router-outlet>
+    <pet-market-navbar />
+    <router-outlet />
+    <pet-market-footer />
   `,
+  imports: [RouterModule, NavbarComponent, FooterComponent],
 })
 export class AppComponent {
   title = 'Pet Market';
