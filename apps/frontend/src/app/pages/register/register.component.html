@@ -1,0 +1,72 @@
+<main class="content">
+  <h2>Registrera dig</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <section>
+      <label for="firstname">Förnamn <span class="c-red">*</span></label>
+      <input pInputText id="firstname" formControlName="firstname" type="text" [minlength]="2" [maxlength]="40"/>
+      @if(formField("firstname"); as firstname) {
+        @if(firstname?.touched && firstname.errors) {
+          <small class="c-red">Förnamn måste bestå av minst 2 bokstäver</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="lastname">Efternamn <span class="c-red">*</span></label>
+      <input pInputText id="lastname" formControlName="lastname" type="text" [minlength]="2" [maxlength]="40"/>
+      @if(formField("lastname"); as lastname) {
+        @if(lastname?.touched && lastname.errors) {
+          <small class="c-red">Efternamn måste bestå av minst 2 bokstäver</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="username">Användarnamn <span class="c-red">*</span></label>
+      <input pInputText id="username" formControlName="username" type="text" [minlength]="2" [maxlength]="40"/>
+      @if(formField("username"); as username) {
+        @if(username?.touched && username.errors) {
+          <small class="c-red">Användarnamn måste bestå av minst 2 bokstäver</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="password">Lösenord <span class="c-red">*</span></label>
+      <input pInputText id="password" formControlName="password" type="password" [minlength]="8" [maxlength]="40"/>
+      @if(formField("password"); as password) {
+        @if(password?.touched && password.errors) {
+          <small class="c-red">Lösenord måste bestå av minst 8 bokstäver</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="phone">Mobilnummer</label>
+      <input pInputText id="phone" formControlName="phone" type="tel" [maxLength]="10" [minlength]="10"/>
+      @if(formField("phone"); as phone) {
+        @if(phone?.touched && phone.errors) {
+          <small class="c-red">Mobilnummer måste ha 10 siffor</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="email">Mejladress <span class="c-red">*</span></label>
+      <input pInputText id="email" formControlName="email" type="email" email/>
+      @if(formField("email"); as email) {
+        @if(email?.touched && email.errors) {
+          <small class="c-red">Mejladress är inte giltig</small>
+        }
+      }
+    </section>
+
+    <p-button label="Registrera" (onClick)="submit()" [disabled]="!form.valid"/>
+
+    <div>
+      <br>
+      <small>Har du redan ett konto? Testa att <a routerLink="login" class="c-blue">logga in</a></small>
+    </div>
+  </form>
+</main>
