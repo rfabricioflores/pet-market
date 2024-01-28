@@ -25,7 +25,7 @@ export class NavbarComponent {
       },
       {
         label: 'Annonser',
-        icon: 'pi pi-shopping-bag',
+        icon: 'pi pi-search',
         routerLink: 'adverts',
       },
       {
