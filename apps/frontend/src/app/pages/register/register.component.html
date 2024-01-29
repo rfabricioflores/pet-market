@@ -5,7 +5,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <section>
         <label for="firstname">Förnamn <span class="c-red">*</span></label>
-        <input pInputText id="firstname" formControlName="firstname" type="text" [minlength]="2" [maxlength]="40" />
+        <input pInputText id="firstname" formControlName="firstname" type="text" [minlength]="2" [maxlength]="40" required/>
         @if(formField("firstname"); as firstname) {
           @if(firstname?.touched && firstname.errors) {
           <small class="c-red">Förnamn måste bestå av minst 2 bokstäver</small>
@@ -15,7 +15,7 @@
 
       <section>
         <label for="lastname">Efternamn <span class="c-red">*</span></label>
-        <input pInputText id="lastname" formControlName="lastname" type="text" [minlength]="2" [maxlength]="40" />
+        <input pInputText id="lastname" formControlName="lastname" type="text" [minlength]="2" [maxlength]="40" required/>
         @if(formField("lastname"); as lastname) {
           @if(lastname?.touched && lastname.errors) {
           <small class="c-red">Efternamn måste bestå av minst 2 bokstäver</small>
@@ -25,7 +25,7 @@
 
       <section>
         <label for="username">Användarnamn <span class="c-red">*</span></label>
-        <input pInputText id="username" formControlName="username" type="text" [minlength]="2" [maxlength]="40" />
+        <input pInputText id="username" formControlName="username" type="text" [minlength]="2" [maxlength]="40" required/>
         @if(formField("username"); as username) {
           @if(username?.touched && username.errors) {
           <small class="c-red">Användarnamn måste bestå av minst 2 bokstäver</small>
@@ -35,7 +35,7 @@
 
       <section>
         <label for="password">Lösenord <span class="c-red">*</span></label>
-        <input pInputText id="password" formControlName="password" type="password" [minlength]="8" [maxlength]="40" />
+        <input pInputText id="password" formControlName="password" type="password" [minlength]="8" [maxlength]="40" required/>
         @if(formField("password"); as password) {
           @if(password?.touched && password.errors) {
           <small class="c-red">Lösenord måste bestå av minst 8 bokstäver</small>
@@ -55,7 +55,7 @@
 
       <section>
         <label for="email">Mejladress <span class="c-red">*</span></label>
-        <input pInputText id="email" formControlName="email" type="email" email />
+        <input pInputText id="email" formControlName="email" type="email" email required/>
         @if(formField("email"); as email) {
           @if(email?.touched && email.errors) {
           <small class="c-red">Mejladress är inte giltig</small>
