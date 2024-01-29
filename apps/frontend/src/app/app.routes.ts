@@ -15,6 +15,11 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'adverts/:id',
+    loadComponent: () =>
+      import('./pages/ad/ad-page.component').then((m) => m.AdPageComponent),
+  },
+  {
     path: 'register',
     loadComponent: () =>
       import('./pages/register/register.component').then(
