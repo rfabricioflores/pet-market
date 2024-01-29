@@ -1,12 +1,7 @@
 import { Component, HostBinding, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
@@ -31,14 +26,14 @@ export class RegisterComponent {
 
   private authService = inject(AuthService);
 
-  // Form settings with validation
+  // Form group creation
   public form = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    firstname: new FormControl('', [Validators.required]),
-    lastname: new FormControl('', [Validators.required]),
+    username: new FormControl(''),
+    password: new FormControl(''),
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
     phone: new FormControl(''),
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl(''),
   });
 
   public formField(name: string) {
