@@ -19,3 +19,13 @@ a {
       height: auto;
   }
 }
+
+ $red: rgb(190, 24, 24);
+
+.c-red {
+  color: $red;
+}
+
+.c-blue {
+  color: var(--primary-color);
+}
