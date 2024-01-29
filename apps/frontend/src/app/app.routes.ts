@@ -20,4 +20,16 @@ export const appRoutes: Route[] = [
         (m) => m.RegisterComponent
       ),
   },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then(
+        (m) => m.ProfileComponent
+      ),
+  },
 ];
