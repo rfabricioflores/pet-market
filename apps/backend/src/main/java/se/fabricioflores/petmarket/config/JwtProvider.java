@@ -11,7 +11,8 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import se.fabricioflores.petmarket.model.User;
+import se.fabricioflores.petmarket.dto.TokenResDto;
+import se.fabricioflores.petmarket.dto.UserDto;
 
 @Component
 public class JwtProvider {
@@ -19,15 +20,22 @@ public class JwtProvider {
   @Value("${jwt.secret-key}")
   private String jwtSecret;
 
-  public String generateToken(User user) {
-    return Jwts
+  public TokenResDto generateToken(UserDto user) {
+    long nowMillis = System.currentTimeMillis();
+
+    Date now = new Date(nowMillis);
+    Date exp = new Date(nowMillis + TimeUnit.MINUTES.toMillis(5));
+
+    String token = Jwts
             .builder()
-            .setSubject(user.getUsername())
-            .claim("id", user.getId())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)))
+            .setSubject(user.username())
+            .claim("id", user.id())
+            .setIssuedAt(now)
+            .setExpiration(exp)
             .signWith(SignatureAlgorithm.HS256, jwtSecret)
             .compact();
+
+    return new TokenResDto(token, exp, user);
   }
 
   public Claims validateToken(String token) throws ExpiredJwtException, UnsupportedJwtException,

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import se.fabricioflores.petmarket.config.JwtProvider;
 import se.fabricioflores.petmarket.dto.LoginCredentials;
 import se.fabricioflores.petmarket.dto.RegisterCredentials;
+import se.fabricioflores.petmarket.dto.TokenResDto;
+import se.fabricioflores.petmarket.dto.UserDto;
 import se.fabricioflores.petmarket.exception.InvalidLoginCredsException;
 import se.fabricioflores.petmarket.exception.UserNotFoundException;
 import se.fabricioflores.petmarket.exception.UsernameNotAvailableException;
@@ -71,10 +73,10 @@ public class UserService {
    * @throws UserNotFoundException
    * @throws InvalidLoginCredsException
    */
-  public String login(LoginCredentials credentials) {
+  public TokenResDto login(LoginCredentials credentials) {
     User user = loadUserByUsername(credentials.username());
     if(!passwordEncoder.matches(credentials.password(), user.getPassword())) throw new InvalidLoginCredsException();
-    return jwtProvider.generateToken(user);
+    return jwtProvider.generateToken(new UserDto(user.getId(), user.getUsername(), user.getFirstname(), user.getLastname()));
   }
 
 }

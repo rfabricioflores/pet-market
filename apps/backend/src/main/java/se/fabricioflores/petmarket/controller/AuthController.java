@@ -1,6 +1,5 @@
 package se.fabricioflores.petmarket.controller;
 
-import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +27,6 @@ public class AuthController {
 
   @PostMapping("/login")
   public ResponseEntity<Object> login(@RequestBody @Valid LoginCredentials credentials) {
-    return ResponseEntity.ok().body(Map.of("token", userService.login(credentials)));
+    return ResponseEntity.ok().body(userService.login(credentials));
   }
 }
