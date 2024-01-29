@@ -6,10 +6,7 @@ interface Ad {
   photos: AdPhoto[];
   editedAt: string;
   createdAt: string;
-}
-
-interface AdWithOwner extends Ad {
-  owner: AdOwner;
+  owner: AdOwner | null | undefined;
 }
 
 interface AdOwner {
@@ -37,4 +34,4 @@ interface AdPagination {
   empty: boolean;
 }
 
-export { Ad, AdPhoto, AdOwner, AdWithOwner, AdPagination };
+export { Ad, AdPhoto, AdOwner, AdPagination };
