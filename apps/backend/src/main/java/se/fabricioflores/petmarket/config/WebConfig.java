@@ -28,7 +28,8 @@ public class WebConfig {
 		source.registerCorsConfiguration("/**", config);
     CorsFilter corsFilter = new CorsFilter(source);
 		FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<Filter>(corsFilter);
-		bean.setOrder(0);
+    // order should be set to -100 because we need to run CorsFilter before SpringSecurityFilter
+		bean.setOrder(-102);
 		return bean;
   }
 }
