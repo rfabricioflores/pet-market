@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'apps/frontend/src/environments/environment';
-import { Ad, AdPagination, AdWithOwner } from '../../interfaces/advertisement';
+import { Ad, AdPagination } from '../../interfaces/advertisement';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class AdService {
   private http = inject(HttpClient);
 
   public getAdById(id: string) {
-    return this.http.get<Ad | AdWithOwner>(`${this.api}/ad/${id}`);
+    return this.http.get<Ad>(`${this.api}/ad/${id}`);
   }
 
   public getAdsWithPagination(page: string, size: string) {
