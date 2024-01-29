@@ -1,0 +1,33 @@
+<main class="content">
+  @if (error()) {
+    <h2>Denna ad existerar inte</h2>
+    <a routerLink="/adverts">
+      <p-button label="Se annonser"/>
+    </a>
+  }
+
+  @if(ad()) {
+    <br>
+    <br>
+    <div class="card galleria">
+      <p-galleria [value]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"  [containerStyle]="{ 'max-width': '640px' }">
+          <ng-template pTemplate="item" let-item>
+              <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+          </ng-template>
+      </p-galleria>
+    </div>
+
+    <h1 style="font-weight: 600;">{{ad()?.title}}</h1>
+    <h2>{{ad()?.price}} kr</h2>
+    <p>{{ad()?.description}}</p>
+
+    @if (ad()?.owner; as owner) {
+      <p-divider />
+      <h2>Säljes av:</h2>
+      <div class="owner-wrapper">
+        <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"/>
+        <h3 style="margin-left: .5rem;">{{owner.firstname}} {{owner.lastname}}</h3>
+      </div>
+    }
+  }
+</main>
