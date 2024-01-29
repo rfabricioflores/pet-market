@@ -4,6 +4,11 @@
       "name": "jwt.secret-key",
       "type": "java.lang.String",
       "description": "Secret key for generation of json web tokens"
+    },
+    {
+      "name": "cors.allowed.origin",
+      "type": "java.lang.String",
+      "description": "Allowed cors origin"
     }
   ]
 }
