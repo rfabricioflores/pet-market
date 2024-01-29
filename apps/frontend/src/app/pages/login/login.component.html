@@ -1,0 +1,36 @@
+<main class="content">
+  <h2>Logga in</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <section>
+      <label for="username">Användarnamn <span class="c-red">*</span></label>
+      <input pInputText id="username" formControlName="username" type="text" [minlength]="2" [maxlength]="40" required/>
+      @if(formField("username"); as username) {
+        @if(username?.touched && username.errors) {
+        <small class="c-red">Användarnamn måste bestå av minst 2 bokstäver</small>
+        }
+      }
+    </section>
+
+    <section>
+      <label for="password">Lösenord <span class="c-red">*</span></label>
+      <input pInputText id="password" formControlName="password" type="password" [minlength]="8" [maxlength]="40" required/>
+      @if(formField("password"); as password) {
+        @if(password?.touched && password.errors) {
+        <small class="c-red">Lösenord måste bestå av minst 8 bokstäver</small>
+        }
+      }
+    </section>
+
+    @if(errorMessage()) {
+      <p class="c-red">{{errorMessage()}}</p>
+    }
+
+    <p-button label="Skicka" (onClick)="submit()" [disabled]="!form.valid || loading()" />
+
+    <div>
+      <br>
+      <small>Har du inte ett konto? <a routerLink="/register" class="c-blue">Registrera dig!</a></small>
+    </div>
+  </form>
+</main>
