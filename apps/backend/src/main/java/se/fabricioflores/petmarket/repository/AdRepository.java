@@ -2,6 +2,7 @@ package se.fabricioflores.petmarket.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import se.fabricioflores.petmarket.model.Ad;
@@ -13,5 +14,6 @@ public interface AdRepository extends PagingAndSortingRepository<Ad, Long>, Crud
   Optional<AdProjection> findOneById(Long id);
   Optional<AdWithUserInfoProjection> findOneWithUserById(Long id);
   Page<AdProjection> findAllBy(Pageable pageable);
+  @Query("SELECT a FROM Ad a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))")
   Page<AdProjection> findAllByTitleContaining(String title, Pageable pageable);
 }
