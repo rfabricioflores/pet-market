@@ -34,4 +34,11 @@ interface AdPagination {
   empty: boolean;
 }
 
-export { Ad, AdPhoto, AdOwner, AdPagination };
+interface AdForm {
+  title: string;
+  description: string;
+  price: number;
+  photos: string[];
+}
+
+export { Ad, AdPhoto, AdOwner, AdPagination, AdForm };
