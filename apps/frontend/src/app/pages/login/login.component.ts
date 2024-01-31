@@ -41,14 +41,17 @@ export class LoginComponent {
   // Submit Form
   public submit() {
     if (this.form.valid) {
+      this.loading.set(true);
       this.authService
         .login({
           username: this.formField('username')!.value,
           password: this.formField('password')!.value,
         })
         .subscribe({
-          error: () =>
-            this.errorMessage.set('Ett fel inträffade, försök igen!'),
+          error: () => {
+            this.errorMessage.set('Ett fel inträffade, försök igen!');
+            this.loading.set(false);
+          },
         });
     }
   }
