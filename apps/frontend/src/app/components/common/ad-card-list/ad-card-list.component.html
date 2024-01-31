@@ -1,0 +1,9 @@
+@if (adList(); as adList) {
+  @for (ad of adList.content; track $index;) {
+    <pet-market-ad-card [ad]="ad"/>
+
+    @if($index != adList.totalElements - 1) {
+      <p-divider />
+    }
+  }
+}
