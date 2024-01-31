@@ -15,6 +15,14 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'adverts/create',
+    loadComponent: () =>
+      import('./pages/create-ad/create-ad.component').then(
+        (m) => m.CreateAdComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'adverts/:id',
     loadComponent: () =>
       import('./pages/ad/ad-page.component').then((m) => m.AdPageComponent),
