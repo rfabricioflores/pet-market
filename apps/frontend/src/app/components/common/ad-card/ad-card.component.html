@@ -1,10 +1,12 @@
 @if (ad(); as ad) {
   <a routerLink="/adverts/{{ad.id}}">
-    @if(ad.photos[0]) {
-      <img src="{{ad.photos[0].url}}" alt="">
-    } @else {
-      <img src="/assets/no-image.png" class="no-image">
-    }
+    <div class="image-wrapper">
+      @if(ad.photos[0]) {
+        <img src="{{ad.photos[0].url}}">
+      } @else {
+        <img src="/assets/no-image.png">
+      }
+    </div>
     <div class="card-info">
       <div class="details">
         <h3>{{ad.title}}</h3>
