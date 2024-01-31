@@ -6,7 +6,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AdService } from '../../services/ad/ad.service';
 import { Ad } from '../../interfaces/advertisement';
 import { DividerModule } from 'primeng/divider';
@@ -25,6 +25,7 @@ import { RouterLink } from '@angular/router';
     GalleriaModule,
     ButtonModule,
     RouterLink,
+    DatePipe,
   ],
   templateUrl: './ad-page.component.html',
   styleUrl: './ad-page.component.scss',

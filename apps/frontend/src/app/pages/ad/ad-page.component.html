@@ -17,17 +17,22 @@
       </p-galleria>
     </div>
 
+    <small>Inlagd {{ad()?.createdAt | date: 'medium' }}</small>
     <h1 style="font-weight: 600;">{{ad()?.title}}</h1>
     <h2>{{ad()?.price}} kr</h2>
+    <br>
+    <h3>Beskrivning</h3>
     <p>{{ad()?.description}}</p>
 
     @if (ad()?.owner; as owner) {
+      <br>
       <p-divider />
-      <h2>Säljes av:</h2>
+      <h3>Säljes av:</h3>
       <div class="owner-wrapper">
         <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"/>
-        <h3 style="margin-left: .5rem;">{{owner.firstname}} {{owner.lastname}}</h3>
+        <h4 style="margin-left: .5rem;">{{owner.firstname}} {{owner.lastname}}</h4>
       </div>
+      <br>
     }
   }
 </main>
