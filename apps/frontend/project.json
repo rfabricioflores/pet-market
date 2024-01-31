@@ -22,7 +22,12 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/frontend/src/favicon.ico",
-          "apps/frontend/src/assets"
+          "apps/frontend/src/assets",
+          {
+            "glob": "_redirects",
+            "input": "apps/frontend/src",
+            "output": "/"
+          }
         ],
         "styles": [
           "apps/frontend/src/styles.scss",

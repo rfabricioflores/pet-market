@@ -1,0 +1,4 @@
+https://pet-market.netlify.app/* https://pet-market.fabricioflores.se/:splat 301!
+
+# Angular correction
+https://pet-market.fabricioflores.se/* /index.html 200

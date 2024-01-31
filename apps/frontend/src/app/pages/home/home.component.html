@@ -2,5 +2,11 @@
   <div class="content">
     <h2>Sök annonser</h2>
     <pet-market-search />
+    <br>
+    @if (adList(); as list) {
+      <pet-market-ad-card-list [adList]="list"/>
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="list.totalElements"
+  [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    }
   </div>
 </main>

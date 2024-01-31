@@ -1,0 +1,63 @@
+<main class="content">
+  <h2>Skapa en ny annons</h2>
+
+  @if (!successId()) {
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <section>
+        <label for="title">Titel <span class="c-red">*</span></label>
+        <input pInputText id="title" formControlName="title" type="text" [minlength]="2" [maxlength]="40" required/>
+        @if(formField("title"); as title) {
+          @if(title?.touched && title.errors) {
+          <small class="c-red">Titeln måste bestå av minst 2 bokstäver</small>
+          }
+        }
+      </section>
+
+      <section>
+        <label for="description">Beskrivning <span class="c-red">*</span></label>
+        <input pInputText id="description" formControlName="description" type="description" [minlength]="8" [maxlength]="40" required/>
+        @if(formField("description"); as description) {
+          @if(description?.touched && description.errors) {
+          <small class="c-red">Beskrivning måste bestå av minst 10 bokstäver</small>
+          }
+        }
+      </section>
+
+      <section>
+        <label for="price">Pris <span class="c-red">*</span></label>
+        <input pInputText id="price" formControlName="price" type="number" [minlength]="1" [maxlength]="40" required placeholder="200"/>
+        @if(formField("price"); as price) {
+          @if(price?.touched && price.errors) {
+          <small class="c-red">Pris fältet kan inte vara tomt</small>
+          }
+        }
+      </section>
+
+      <section>
+        <label for="photoOne">Bild nr 1</label>
+        <input pInputText id="photoOne" formControlName="photoOne" type="url" [minlength]="10" placeholder="https://example.com/bild"  />
+      </section>
+      <section>
+        <label for="photoTwo">Bild nr 2</label>
+        <input pInputText id="photoTwo" formControlName="photoTwo" type="url" [minlength]="10" placeholder="https://example.com/bild"/>
+      </section>
+      <section>
+        <label for="photoThree">Bild nr 3</label>
+        <input pInputText id="photoThree" formControlName="photoThree" type="url" [minlength]="10" placeholder="https://example.com/bild"/>
+      </section>
+
+      @if(errorMessage()) {
+        <p class="c-red">{{errorMessage()}}</p>
+      }
+
+      <p-button label="Skapa" (onClick)="submit()" [disabled]="!form.valid || loading()" />
+    </form>
+  }
+
+  @if (successId()) {
+    <h2>Annonsen har skapats framgångsrikt</h2>
+    <a routerLink="/adverts/{{successId()}}">
+      <p-button label="Besök din annons"/>
+    </a>
+  }
+</main>
