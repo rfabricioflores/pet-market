@@ -15,13 +15,13 @@ export class AdService {
     return this.http.get<Ad>(`${this.api}/ad/${id}`);
   }
 
-  public getAdsWithPagination(page: string, size: string) {
+  public getAdsWithPagination(page: number, size: number) {
     return this.http.get<AdPagination>(
       `${this.api}/ad?page=${page}&size=${size}`
     );
   }
 
-  public searchAdsByTitle(title: string, page: string, size: string) {
+  public searchAdsByTitle(title: string, page: number, size: number) {
     return this.http.get<AdPagination>(
       `${this.api}/ad/search?title=${title}&page=${page}&size${size}`
     );
