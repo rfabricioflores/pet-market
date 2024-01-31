@@ -1,3 +1,3 @@
 export const environment = {
-  api: 'https://domain.com',
+  api: 'https://pet-market-api.fabricioflores.se',
 };
