@@ -2,15 +2,15 @@ version: "3.9"
 services:
   db:
     container_name: pet-market-db
-    image: "mysql"
+    image: "postgres"
     restart: unless-stopped
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MYSQL_DATABASE: pet-market
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_DB: pet-market
+      POSTGRES_PASSWORD: root
     volumes:
-      - "./db:/var/lib/mysql"
+      - "./db:/var/lib/postgresql/data"
 
 volumes:
   db:
