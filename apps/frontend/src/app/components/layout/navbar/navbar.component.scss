@@ -30,10 +30,13 @@
       p-menubarsub {
         position: absolute;
         right: 0;
+      }
 
-        &[ng-reflect-mobile-active="true"] {
+      &.p-menubar-mobile-active {
+        p-menubarsub {
+          position: absolute;
           bottom: 0;
-          width: 100%;
+          left: 0;
         }
       }
     }
