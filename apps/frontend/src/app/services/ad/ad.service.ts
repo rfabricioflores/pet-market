@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from 'apps/frontend/src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { Ad, AdForm, AdPagination } from '../../interfaces/advertisement';
 
 @Injectable({
