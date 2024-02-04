@@ -1,12 +1,14 @@
-<main class="wrapper">
-  <div class="content">
-    <h2>Sök annonser</h2>
-    <pet-market-search />
-    <br>
-    @if (adList(); as list) {
-      <pet-market-ad-card-list [adList]="list"/>
-      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="list.totalElements"
-  [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+<main class="content">
+  <h2>Sök annonser</h2>
+  <pet-market-search />
+  <br>
+  @if (adList(); as list) {
+    @if (list.content.length != 0) {
+      <pet-market-ad-card-list [adList]="list" />
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="size" [totalRecords]="list.totalElements"
+        [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    } @else {
+      <p>Det finns inga annonser ännu!</p>
     }
-  </div>
+  }
 </main>
