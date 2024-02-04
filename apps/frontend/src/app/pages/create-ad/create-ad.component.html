@@ -1,7 +1,6 @@
 <main class="content">
-  <h2>Skapa en ny annons</h2>
-
   @if (!successId()) {
+    <h2>Skapa en ny annons</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <section>
         <label for="title">Titel <span class="c-red">*</span></label>

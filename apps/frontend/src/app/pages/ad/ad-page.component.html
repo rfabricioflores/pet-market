@@ -6,25 +6,29 @@
     </a>
   }
 
-  @if(ad()) {
+  @if(ad(); as ad) {
     <br>
     <br>
-    <div class="card galleria">
-      <p-galleria [value]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false"  [containerStyle]="{ 'max-width': '640px' }">
-          <ng-template pTemplate="item" let-item>
-              <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-          </ng-template>
-      </p-galleria>
-    </div>
+    @if (adPhotos(); as adPhotos) {
+      <div class="card galleria">
+        <p-galleria [value]="adPhotos" [numVisible]="5" [circular]="true" [showItemNavigators]="adPhotos.length !== 1" [showThumbnails]="false"  [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+        </p-galleria>
+      </div>
+    }
 
-    <small>Inlagd {{ad()?.createdAt | date: 'medium' }}</small>
-    <h1 style="font-weight: 600;">{{ad()?.title}}</h1>
-    <h2>{{ad()?.price}} kr</h2>
+    <br>
+
+    <small>Inlagd {{ad?.createdAt | date: 'medium' }}</small>
+    <h1 style="font-weight: 600;">{{ad?.title}}</h1>
+    <h2>{{ad?.price}} kr</h2>
     <br>
     <h3>Beskrivning</h3>
-    <p>{{ad()?.description}}</p>
+    <p>{{ad?.description}}</p>
 
-    @if (ad()?.owner; as owner) {
+    @if (ad?.owner; as owner) {
       <br>
       <p-divider />
       <h3>Säljes av:</h3>
