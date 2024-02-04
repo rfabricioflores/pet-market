@@ -51,12 +51,15 @@ export class CreateAdComponent {
         title: this.formField('title')!.value,
         description: this.formField('description')!.value,
         price: this.formField('price')!.value,
-        photos: [
-          this.formField('photoOne')!.value,
-          this.formField('photoTwo')!.value,
-          this.formField('photoThree')!.value,
-        ],
+        photos: [],
       };
+
+      this.formField('photoOne')?.value.length > 10 &&
+        data.photos.push(this.formField('photoOne')?.value);
+      this.formField('photoTwo')?.value.length > 10 &&
+        data.photos.push(this.formField('photoTwo')?.value);
+      this.formField('photoThree')?.value.length > 10 &&
+        data.photos.push(this.formField('photoThree')?.value);
 
       this.adService.createAd(data).subscribe({
         next: (res) => {
